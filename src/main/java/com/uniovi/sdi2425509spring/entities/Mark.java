@@ -1,5 +1,11 @@
 package com.uniovi.sdi2425509spring.entities;
+
+import jakarta.persistence.*;
+
+@Entity
 public class Mark {
+    @Id
+    @GeneratedValue
     private Long id;
     private String description;
     private Double score;
