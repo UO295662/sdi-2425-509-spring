@@ -1,37 +1,37 @@
 package com.uniovi.sdi2425509spring.complementario1;
 
+import com.uniovi.sdi2425509spring.entities.Mark;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class ProfessorsController {
     @Autowired
     private ProfessorsService professorsService;
     @RequestMapping("/professor/list")
-    public String getList() {
-        return professorsService.getTeachers().toString();
+    public String getList(Model model) {
+        model.addAttribute("professorList", professorsService.getTeachers());
+        return "professor/list";
     }
-    @RequestMapping(value = "/professor/add/{dni}/{nombre}/{apellidos}/{categoria}", method = RequestMethod.GET)
-    public String setTeacher(@PathVariable String dni,
-                             @PathVariable String nombre,
-                             @PathVariable String apellidos,
-                             @PathVariable String categoria) {
-        Professor professor = new Professor();
-        professor.setDni(dni);
-        professor.setNombre(nombre);
-        professor.setApellidos(apellidos);
-        professor.setCategoria(categoria);
-
+    @RequestMapping(value = "/professor/add", method = RequestMethod.POST)
+    public String setMark(@ModelAttribute Professor professor) {
         professorsService.addTeacher(professor);
-        return "Professor added:"+professor.toString();
+        return "redirect:/professor/list";
+    }
+    @RequestMapping(value = "/professor/add")
+    public String getTeacher() {
+        return "professor/add";
     }
     @RequestMapping("/professor/details/{id}")
-    public String getDetail(@PathVariable Long id) {
-        return professorsService.getTeacher(id).toString();
+    public String getDetail(Model model, @PathVariable Long id) {
+        model.addAttribute("professor", professorsService.getTeacher(id));
+        return "professor/details";
     }
     @RequestMapping("/professor/delete/{id}")
     public String deleteteacher(@PathVariable Long id) {
         professorsService.deleteTeacher(id);
-        return "Teacher deleted";
+        return "redirect:/professor/list";
     }
 }
