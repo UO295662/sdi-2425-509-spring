@@ -1,4 +1,4 @@
-package com.uniovi.sdi2425509spring.complementario1;
+package com.uniovi.sdi2425509spring.complementario;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;

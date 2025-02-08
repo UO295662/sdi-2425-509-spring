@@ -1,6 +1,5 @@
-package com.uniovi.sdi2425509spring.complementario1;
+package com.uniovi.sdi2425509spring.complementario;
 
-import com.uniovi.sdi2425509spring.entities.Mark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
