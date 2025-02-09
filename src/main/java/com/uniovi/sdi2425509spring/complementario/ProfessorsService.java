@@ -1,6 +1,6 @@
 package com.uniovi.sdi2425509spring.complementario;
 
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;

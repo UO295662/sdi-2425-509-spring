@@ -1,6 +1,6 @@
 package com.uniovi.sdi2425509spring.complementario;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Professor {

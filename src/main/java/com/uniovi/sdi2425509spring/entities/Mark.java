@@ -1,6 +1,6 @@
 package com.uniovi.sdi2425509spring.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Mark {

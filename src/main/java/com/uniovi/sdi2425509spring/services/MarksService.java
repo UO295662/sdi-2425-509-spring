@@ -1,7 +1,7 @@
 package com.uniovi.sdi2425509spring.services;
 
 import com.uniovi.sdi2425509spring.repositories.MarksRepository;
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
