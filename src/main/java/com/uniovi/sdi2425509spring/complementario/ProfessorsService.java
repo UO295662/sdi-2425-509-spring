@@ -23,7 +23,7 @@ public class ProfessorsService {
     public void addTeacher(Professor Teacher) {
         // Si en Id es null le asignamos el ultimo + 1 de la lista
         if (Teacher.getId() == null) {
-            Teacher.setId(professorsList.get(professorsList.size() - 1).getId() + 1);
+            Teacher.setId(professorsList.isEmpty() ? 1L : professorsList.get(professorsList.size() - 1).getId() + 1);
         }
         professorsList.add(Teacher);
     }
