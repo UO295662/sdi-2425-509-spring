@@ -20,7 +20,8 @@ public class ProfessorsController {
         return "redirect:/professor/list";
     }
     @RequestMapping(value = "/professor/add")
-    public String getTeacher() {
+    public String getTeacher(Model model) {
+        model.addAttribute("usersList", professorsService.getTeachers());
         return "professor/add";
     }
     @RequestMapping("/professor/details/{id}")
