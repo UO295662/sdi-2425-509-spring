@@ -29,9 +29,7 @@ public class UsersService {
         return usersRepository.findById(id).get();
     }
     public void addUser(User user) {
-        if (user.getPassword() != null) {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        }
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         usersRepository.save(user);
     }
     public User getUserByDni(String dni) {

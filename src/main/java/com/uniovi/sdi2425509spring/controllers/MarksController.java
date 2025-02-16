@@ -8,20 +8,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashSet;
+import java.util.Set;
+
 @Controller
 public class MarksController {
     @Autowired //Inyectar el servicio
     // Inyectamos el servicio por inyección basada en constructor
     private final MarksService marksService;
     private final UsersService usersService;
-    public MarksController(MarksService marksService, UsersService usersService) {
+    private final HttpSession httpSession;
+    public MarksController(MarksService marksService, UsersService usersService,
+    HttpSession httpSession) {
         this.marksService = marksService;
         this.usersService = usersService;
+        this.httpSession = httpSession;
     }
 
     @RequestMapping("/mark/list")
     public String getList(Model model) {
-        model.addAttribute("markList", marksService.getMarks());
+        Set<Mark> consultedList = (Set<Mark>) (httpSession.getAttribute("consultedList") != null ?
+                httpSession.getAttribute("consultedList") : new HashSet<>());
+        model.addAttribute("consultedList", consultedList);
+        model.addAttribute("marksList", marksService.getMarks());
         return "mark/list";
     }
 
