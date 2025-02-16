@@ -86,4 +86,9 @@ public class UsersController {
         model.addAttribute("user", new User());
         return "signup";
     }
+    @RequestMapping("/user/list/update")
+    public String updateList(Model model) {
+        model.addAttribute("usersList", usersService.getUsers());
+        return "user/list :: tableUsers";
+    }
 }
