@@ -1,5 +1,6 @@
 package com.uniovi.sdi2425509spring.services;
 
+import com.uniovi.sdi2425509spring.entities.User;
 import com.uniovi.sdi2425509spring.repositories.MarksRepository;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
@@ -50,5 +51,12 @@ public class MarksService {
             marksRepository.updateResend(revised, id);
         }
     }
-
+    public List<Mark> getMarksForUser(User user) {
+        List<Mark> marks = new ArrayList<>();
+        if (user.getRole().equals("ROLE_STUDENT")) {
+            marks = marksRepository.findAllByUser(user);}
+        if (user.getRole().equals("ROLE_PROFESSOR")) {
+            marks = getMarks(); }
+        return marks;
+    }
 }
