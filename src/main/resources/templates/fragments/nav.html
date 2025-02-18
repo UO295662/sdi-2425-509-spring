@@ -1,92 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extrasspringsecurity4">
-    <a class="navbar-brand" href="#"></a>
-    <img src="/images/student-48.png" alt="logo"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Navbar</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">
+        <img src="/images/student-48.png" alt="logo"/>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynavbar"
             aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="mynavbar">
         <ul class="navbar-nav mr-auto" sec:authorize="isAuthenticated()">
-            <li class="nav-item ">
-                <a class="nav-link" href="/home">Home<span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="/home">Home</a>
             </li>
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"> Gestión de notas
-                </a>
+                   aria-haspopup="true" aria-expanded="false">Gestión de notas</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/mark/list">Ver Notas</a>
-                    <a class="dropdown-item" href="/mark/add"  sec:authorize="hasRole('ROLE_PROFESSOR')">Agregar Nota</a>
+                    <a class="dropdown-item" href="/mark/add" sec:authorize="hasRole('ROLE_PROFESSOR')">Agregar Nota</a>
                 </div>
             </li>
-            <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')" >
+            <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"> Gestión de usuarios
-                </a>
+                   aria-haspopup="true" aria-expanded="false">Gestión de usuarios</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/user/add">Agregar usuario</a>
                     <a class="dropdown-item" href="/user/list">Ver usuarios</a>
                 </div>
             </li>
-            <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')" >
-                <a class="nav-link dropdown-toggle" href="#" id="profesorDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"> Gestión de profesores
-                </a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Gestión de profesores</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/professor/add" sec:authorize="hasRole('ROLE_ADMIN')">Agregar profesor</a>
                     <a class="dropdown-item" href="/professor/list">Ver profesores</a>
                 </div>
             </li>
         </ul>
-        <ul class="navbar-nav justify-content-end">
+
+        <!-- Parte derecha de la barra de navegación -->
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <span th:text="#{language.change}"></span>
                 </a>
-                <div id="languageDropdownMenuButton" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" id="btnEnglish" value="EN">
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" id="btnEnglish">
                         <img th:src="@{/images/if_uk_flag.png}" style="border: 0; float: left; margin-right: 15px"/>
                         <span th:text="#{language.en}">Inglés</span>
                     </a>
-                    <a class="dropdown-item" id="btnSpanish" value="ES">
+                    <a class="dropdown-item" id="btnSpanish">
                         <img th:src="@{/images/if_spain_flag.png}" style="border: 0; float: left; margin-right: 15px"/>
                         <span th:text="#{language.es}">Español</span>
                     </a>
                 </div>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="!isAuthenticated()" class="nav-item">
                 <a class="nav-link" href="/signup">
-                    <i class='fas fa-user-alt' style='font-size:16px'></i>
-                    <span th:text="#{signup.message}"></span>
+                    <i class='fas fa-user-alt'></i>
+                    <span th:text="#{signup.message}">Registrate</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="!isAuthenticated()" class="nav-item">
                 <a class="nav-link" href="/login">
-                    <i class='fas fa-sign-in-alt' style='font-size:16px'></i>
-                    <span th:text="#{login.message}"></span>
+                    <i class='fas fa-sign-in-alt'></i>
+                    <span th:text="#{login.message}">Identifícate</span>
                 </a>
             </li>
-        </ul>
-        <li sec:authorize="!isAuthenticated()" class="nav-item">
-            <a class="nav-link" href="/signup" th:text="#{signup.message}">
-                <i class='fas fa-user-alt' style='font-size:16px'></i>
-                <span>Registrate</span>
-            </a>
-        </li>
-        <li sec:authorize="!isAuthenticated()" class="nav-item">
-            <a class="nav-link" href="/login" th:text="#{login.message}">
-                <i class='fas fa-sign-in-alt' style='font-size:16px'></i>
-                <span>Identifícate</span>
-            </a>
-        </li>
-        <li sec:authorize="isAuthenticated()" class="nav-item">
-            <a class="nav-link" href="/logout">
-                <i class='fas fa-sign-out-alt' style='font-size:16px'></i>
-                <span>Desconectar</span>
-            </a>
-        </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item">
+                <a class="nav-link" href="/logout">
+                    <i class='fas fa-sign-out-alt'></i>
+                    <span>Desconectar</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
+
+</body>
+</html>

@@ -30,7 +30,21 @@ public class MarksController {
         this.usersService = usersService;
         this.httpSession = httpSession;
     }
-
+    @RequestMapping("/home")
+    public String getListHome(Model model, Pageable pageable, Principal principal,
+                          @RequestParam(value = "searchText", required = false) String searchText) {
+        String dni = principal.getName(); // DNI es el name de la autenticación
+        User user = usersService.getUserByDni(dni);
+        Page<Mark> marks;
+        if(searchText != null && !searchText.isEmpty()){
+            marks = marksService.searchMarksByDescriptionAndNameForUser(pageable,searchText,user);
+        }else{
+            marks = marksService.getMarksForUser(pageable,user);
+        }
+        model.addAttribute("markList", marks.getContent());
+        model.addAttribute("page", marks);
+        return "home";
+    }
     @RequestMapping("/mark/list")
     public String getList(Model model, Pageable pageable, Principal principal,
                           @RequestParam(value = "",required = false)String searchText){
@@ -95,17 +109,17 @@ public class MarksController {
         User user = usersService.getUserByDni(dni);
         Page<Mark> marks = marksService.getMarksForUser(pageable,user);
         model.addAttribute("marksList", marks.getContent() );
-        return "mark/list :: marksTable";
+        return "fragments/marksTable :: marksTable";
     }
 
     @RequestMapping(value = "/mark/{id}/resend", method = RequestMethod.GET)
     public String setResendTrue(@PathVariable Long id) {
         marksService.setMarkResend(true, id);
-        return "redirect:/mark/list";
+        return "fragments/marksTable";
     }
     @RequestMapping(value = "/mark/{id}/noresend", method = RequestMethod.GET)
     public String setResendFalse(@PathVariable Long id) {
         marksService.setMarkResend(false, id);
-        return "redirect:/mark/list";
+        return "fragments/marksTable";
     }
 }
