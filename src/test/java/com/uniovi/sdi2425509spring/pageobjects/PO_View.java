@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 public class PO_View {
 	
 	protected static PO_Properties p = new PO_Properties("messages");
+
 	protected static int timeout = 2;
 
 	public static int getTimeout() {
