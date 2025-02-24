@@ -189,7 +189,7 @@ class Sdi2425509SpringApplicationTests {
 		//Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		//Rellenamos el formulario
-		PO_LoginView.fillLoginForm(driver, "99999990A", "123456");
+		PO_LoginView.fillLoginForm(driver, "99999990A", "123455");
 		//Comprobamos que no entramos en la pagina privada de Admin
 		String checkText = "Identifícate";
 		List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
@@ -208,7 +208,7 @@ class Sdi2425509SpringApplicationTests {
 		String checkText = "Notas del usuario";
 		List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
 		Assertions.assertEquals(checkText, result.get(0).getText());
-		PO_LoginView.clickLogout(driver);
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
 	//PR12. Loguearse, comprobar que se visualizan 4 filas de notas y desconectarse usando el rol deestudiante
@@ -317,6 +317,4 @@ class Sdi2425509SpringApplicationTests {
 		String loginText = PO_HomeView.getP().getString("signup.message", PO_Properties.getSPANISH());
 		PO_PrivateView.clickOption(driver, "logout", "text", loginText);
 	}
-
 }
-
