@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class PO_LoginView extends PO_NavView{
     static public void fillLoginForm(WebDriver driver, String dnip, String passwordp){
         WebElement dni = driver.findElement(By.name("username"));
@@ -17,4 +19,14 @@ public class PO_LoginView extends PO_NavView{
         By boton = By.className("btn");
         driver.findElement(boton).click();
     }
+    static public void login(WebDriver driver, String dnip, String passwordp){
+        //Vamos al formulario de logueo.
+        PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+        //Rellenamos el formulario
+        PO_LoginView.fillLoginForm(driver, dnip, passwordp);
+        //COmprobamos que entramos en la pagina privada de Alumno
+        String checkText = "Notas del usuario";
+        List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
+    }
+
 }
